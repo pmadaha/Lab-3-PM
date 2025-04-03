@@ -24,9 +24,9 @@ d.joined <- d.all %>% left_join(., d.xl, by = c("GEOID" = "fixed_geoid"))
 Task1<- d.all %>% dplyr :: filter(STATEFP %in% c("26", "39","18", "21", "47"))
 tmap::tm_shape(Task1) + tm_polygons()
 
-# you can ignore the top bit, I created the subset after completing my lab instead of prior. 
-
 Task_join <- Task1 %>% left_join(., d.xl, by = c("GEOID" = "fixed_geoid"))
+
+# you can ignore the top bit, I created the subset after completing my lab instead of prior. 
 
 sf::write_sf(Task_join, "Task_join.shp")
 Task_join<- sf::read_sf("./Task_join.shp")
