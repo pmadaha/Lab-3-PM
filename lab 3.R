@@ -11,7 +11,6 @@ library (sf)
 library(tmap)
 
 
-
 d.all <- sf::read_sf ("./ACS_2020_5YR_COUNTY.gdb/ACS_2020_5YR_COUNTY.gdb", layer = "ACS_2020_5YR_COUNTY")
 glimpse (d.all)
 
@@ -20,10 +19,17 @@ d.xl <- sf::read_sf ("./ACS_2020_5YR_COUNTY.gdb/ACS_2020_5YR_COUNTY.gdb", layer 
 d.joined <- d.all %>% left_join(., d.xl, by = c("GEOID" = "fixed_geoid"))
 
 
+
+
 Task1<- d.all %>% dplyr :: filter(STATEFP %in% c("26", "39","18", "21", "47"))
 tmap::tm_shape(Task1) + tm_polygons()
 
+
 Task_join <- Task1 %>% left_join(., d.xl, by = c("GEOID" = "fixed_geoid"))
+
+sf::write_sf(Task_join, "Task_join.shp")
+Task_join<- sf::read_sf("./Task_join.shp")
+
 
 summary (Task_join$B01001e34)
 
